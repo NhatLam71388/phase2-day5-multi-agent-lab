@@ -12,9 +12,10 @@ from typing import Any
 
 @contextmanager
 def trace_span(name: str, attributes: dict[str, Any] | None = None) -> Iterator[dict[str, Any]]:
-    """Minimal span context used by the skeleton.
+    """Minimal span context used by the workflow.
 
-    TODO(student): Replace or augment with LangSmith/Langfuse provider spans.
+    Provider-backed tracing can wrap this span with LangSmith, Langfuse, or
+    OpenTelemetry without changing the workflow code.
     """
 
     started = perf_counter()

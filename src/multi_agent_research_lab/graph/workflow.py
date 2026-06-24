@@ -1,7 +1,19 @@
-"""LangGraph workflow skeleton."""
+"""Workflow orchestration implementation."""
 
-from multi_agent_research_lab.core.errors import StudentTodoError
+from collections.abc import Callable
+
+from multi_agent_research_lab.agents import (
+    AnalystAgent,
+    CriticAgent,
+    ResearcherAgent,
+    SupervisorAgent,
+    WriterAgent,
+)
+from multi_agent_research_lab.core.config import get_settings
+from multi_agent_research_lab.core.errors import AgentExecutionError
 from multi_agent_research_lab.core.state import ResearchState
+
+WorkflowNode = Callable[[ResearchState], ResearchState]
 
 
 class MultiAgentWorkflow:
@@ -10,19 +22,45 @@ class MultiAgentWorkflow:
     Keep orchestration here; keep agent internals in `agents/`.
     """
 
-    def build(self) -> object:
-        """Create a LangGraph graph.
+    def build(self) -> dict[str, WorkflowNode]:
+        """Create the workflow node map.
 
-        TODO(student): Implement nodes, edges, conditional routing, and stop condition.
-        Suggested nodes: supervisor, researcher, analyst, writer, optional critic.
+        LangGraph can replace this deterministic map later without changing the
+        agent contract. The lab keeps it dependency-light and offline-safe.
         """
 
-        raise StudentTodoError("TODO(student): implement MultiAgentWorkflow.build")
+        return {
+            "supervisor": SupervisorAgent().run,
+            "researcher": ResearcherAgent().run,
+            "analyst": AnalystAgent().run,
+            "writer": WriterAgent().run,
+            "critic": CriticAgent().run,
+        }
 
     def run(self, state: ResearchState) -> ResearchState:
-        """Execute the graph and return final state.
+        """Execute the graph and return final state."""
 
-        TODO(student): Compile graph, invoke it, and convert result back to ResearchState.
-        """
+        settings = get_settings()
+        nodes = self.build()
+        for _ in range(settings.max_iterations):
+            state = nodes["supervisor"](state)
+            route = state.route_history[-1]
+            if route == "done":
+                state.add_trace_event("workflow", {"action": "stop", "reason": "done"})
+                return state
+            worker = nodes.get(route)
+            if worker is None:
+                message = f"Unknown workflow route: {route}"
+                state.errors.append(message)
+                raise AgentExecutionError(message)
+            try:
+                state = worker(state)
+            except Exception as exc:
+                message = f"{route} failed: {exc}"
+                state.errors.append(message)
+                state.add_trace_event("workflow", {"action": "worker_failed", "route": route})
+                raise AgentExecutionError(message) from exc
 
-        raise StudentTodoError("TODO(student): implement MultiAgentWorkflow.run")
+        state.errors.append("Workflow exhausted max_iterations without reaching done.")
+        state.add_trace_event("workflow", {"action": "stop", "reason": "max_iterations"})
+        return state

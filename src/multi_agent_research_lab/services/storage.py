@@ -1,4 +1,4 @@
-"""Storage skeleton for benchmark artifacts."""
+"""Storage helpers for benchmark and trace artifacts."""
 
 from pathlib import Path
 

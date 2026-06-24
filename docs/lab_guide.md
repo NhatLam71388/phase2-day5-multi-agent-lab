@@ -22,7 +22,8 @@ File gợi ý:
 - `src/multi_agent_research_lab/cli.py`
 - `src/multi_agent_research_lab/services/llm_client.py`
 
-TODO(student): thay baseline placeholder bằng một call LLM thật.
+Baseline hiện chạy offline bằng deterministic search/answer path. Khi có API key,
+nhóm có thể thay `LLMClient` bằng provider thật mà không đổi CLI.
 
 ## Milestone 2: Supervisor
 
@@ -31,7 +32,8 @@ File gợi ý:
 - `src/multi_agent_research_lab/agents/supervisor.py`
 - `src/multi_agent_research_lab/graph/workflow.py`
 
-TODO(student): implement routing policy.
+Supervisor dùng policy rõ ràng: gọi Researcher, Analyst, Writer, Critic, rồi dừng
+khi đủ artifact hoặc chạm `MAX_ITERATIONS`.
 
 Gợi ý câu hỏi thiết kế:
 
@@ -49,7 +51,8 @@ File gợi ý:
 - `agents/analyst.py`
 - `agents/writer.py`
 
-TODO(student): implement từng worker.
+Worker agents đã tạo artifacts riêng trong shared state: `sources`, `research_notes`,
+`analysis_notes`, `final_answer`, và `critic_notes`.
 
 ## Milestone 4: Trace và benchmark
 

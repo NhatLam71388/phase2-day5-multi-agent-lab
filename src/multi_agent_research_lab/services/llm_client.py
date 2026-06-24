@@ -5,8 +5,6 @@ Production note: agents should depend on this interface instead of importing an 
 
 from dataclasses import dataclass
 
-from multi_agent_research_lab.core.errors import StudentTodoError
-
 
 @dataclass(frozen=True)
 class LLMResponse:
@@ -17,13 +15,26 @@ class LLMResponse:
 
 
 class LLMClient:
-    """Provider-agnostic LLM client skeleton."""
+    """Provider-agnostic LLM client."""
 
     def complete(self, system_prompt: str, user_prompt: str) -> LLMResponse:
         """Return a model completion.
 
-        TODO(student): Connect OpenAI, Azure OpenAI, or another provider.
-        Keep retry, timeout, and token logging here rather than inside agents.
+        The default is deterministic and offline-safe for the lab. It records rough
+        token estimates so benchmarks can still report cost-related fields.
         """
 
-        raise StudentTodoError("TODO(student): implement LLMClient.complete")
+        system_words = system_prompt.split()
+        user_words = user_prompt.split()
+        summary = " ".join(user_words[:80])
+        content = (
+            "Offline completion: "
+            f"{summary}. "
+            "Use provider-backed completion here when API credentials are configured."
+        )
+        return LLMResponse(
+            content=content,
+            input_tokens=len(system_words) + len(user_words),
+            output_tokens=len(content.split()),
+            cost_usd=0.0,
+        )

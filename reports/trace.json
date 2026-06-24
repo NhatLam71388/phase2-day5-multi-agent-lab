@@ -1,0 +1,215 @@
+{
+  "request": {
+    "query": "Research GraphRAG state-of-the-art and write a 500-word summary",
+    "max_sources": 5,
+    "audience": "technical learners"
+  },
+  "iteration": 5,
+  "route_history": [
+    "researcher",
+    "analyst",
+    "writer",
+    "critic",
+    "done"
+  ],
+  "sources": [
+    {
+      "title": "Agent orchestration patterns",
+      "url": "https://example.local/agent-orchestration",
+      "snippet": "Role-specific agents work best when each handoff has a clear state contract, bounded iteration count, and explicit stop condition. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.",
+      "metadata": {
+        "rank": 1,
+        "provider": "local_mock",
+        "citation_id": "S1"
+      }
+    },
+    {
+      "title": "Research workflow guardrails",
+      "url": "https://example.local/research-guardrails",
+      "snippet": "Production research assistants should capture sources, validate final claims, and fall back to deterministic behavior when external providers are unavailable. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.",
+      "metadata": {
+        "rank": 2,
+        "provider": "local_mock",
+        "citation_id": "S2"
+      }
+    },
+    {
+      "title": "Single-agent versus multi-agent tradeoffs",
+      "url": "https://example.local/single-vs-multi-agent",
+      "snippet": "Single-agent baselines are cheaper and simpler, while multi-agent workflows can improve decomposition, reviewability, and citation discipline on complex tasks. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.",
+      "metadata": {
+        "rank": 3,
+        "provider": "local_mock",
+        "citation_id": "S3"
+      }
+    },
+    {
+      "title": "Benchmarking LLM systems",
+      "url": "https://example.local/benchmarking-llm-systems",
+      "snippet": "Useful evaluations combine latency, quality rubrics, citation coverage, cost, and failure rate instead of relying on a single subjective output. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.",
+      "metadata": {
+        "rank": 4,
+        "provider": "local_mock",
+        "citation_id": "S4"
+      }
+    },
+    {
+      "title": "Traceable shared state",
+      "url": "https://example.local/shared-state-tracing",
+      "snippet": "Shared state should preserve request context, intermediate notes, route history, errors, and trace events so a reviewer can reconstruct the workflow. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.",
+      "metadata": {
+        "rank": 5,
+        "provider": "local_mock",
+        "citation_id": "S5"
+      }
+    }
+  ],
+  "research_notes": "Research focus: Research GraphRAG state-of-the-art and write a 500-word summary\nAudience: technical learners\nEvidence gathered:\n- [S1] Agent orchestration patterns: Role-specific agents work best when each handoff has a clear state contract, bounded iteration count, and explicit stop condition. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.\n- [S2] Research workflow guardrails: Production research assistants should capture sources, validate final claims, and fall back to deterministic behavior when external providers are unavailable. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.\n- [S3] Single-agent versus multi-agent tradeoffs: Single-agent baselines are cheaper and simpler, while multi-agent workflows can improve decomposition, reviewability, and citation discipline on complex tasks. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.\n- [S4] Benchmarking LLM systems: Useful evaluations combine latency, quality rubrics, citation coverage, cost, and failure rate instead of relying on a single subjective output. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.\n- [S5] Traceable shared state: Shared state should preserve request context, intermediate notes, route history, errors, and trace events so a reviewer can reconstruct the workflow. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.",
+  "analysis_notes": "Key claims:\n- Multi-agent systems are useful when work benefits from decomposition, handoff, and independent review.\n- A single-agent baseline remains important because it is simpler, faster, and cheaper for straightforward requests.\n- Guardrails should include max iterations, trace events, validation, and fallback behavior.\n\nTradeoffs:\n- Multi-agent workflows add latency and coordination overhead.\n- They improve inspectability because each role leaves a separate artifact.\n\nEvidence gaps:\n- This offline run used 5 local mock sources; production runs should replace them with fresh provider-backed search.",
+  "final_answer": "Answer for: Research GraphRAG state-of-the-art and write a 500-word summary\n\nA practical multi-agent research system should keep the workflow small and traceable: the supervisor routes work, the researcher gathers evidence, the analyst turns evidence into tradeoffs, and the writer produces the final answer. This separation is most valuable for complex research tasks because each role leaves an inspectable artifact and the final answer can cite the evidence used [S1] [S5].\n\nCompared with a single-agent baseline, the multi-agent version usually costs more latency and coordination, but it improves reviewability, failure isolation, and citation discipline. For simple questions, the baseline is often sufficient; for tasks requiring source collection, comparison, and quality review, the multi-agent path is easier to debug and benchmark [S2] [S3] [S4].\n\nRecommended guardrails are max iterations, deterministic fallback behavior, structured shared state, and trace events for each handoff. The benchmark should compare latency, estimated cost, quality score, citation coverage, and failure rate rather than judging only by whether the output looks polished [S4].\n\nSources:\n[S1] Agent orchestration patterns (https://example.local/agent-orchestration)\n[S2] Research workflow guardrails (https://example.local/research-guardrails)\n[S3] Single-agent versus multi-agent tradeoffs (https://example.local/single-vs-multi-agent)\n[S4] Benchmarking LLM systems (https://example.local/benchmarking-llm-systems)\n[S5] Traceable shared state (https://example.local/shared-state-tracing)",
+  "critic_notes": "Critic verdict: pass\nCitation coverage: 100% (5/5 sources cited)\nFailure mode to monitor: stale or mock sources can make a polished answer look better supported than it is.",
+  "agent_results": [
+    {
+      "agent": "supervisor",
+      "content": "Next route: researcher",
+      "metadata": {
+        "iteration": 1
+      }
+    },
+    {
+      "agent": "researcher",
+      "content": "Research focus: Research GraphRAG state-of-the-art and write a 500-word summary\nAudience: technical learners\nEvidence gathered:\n- [S1] Agent orchestration patterns: Role-specific agents work best when each handoff has a clear state contract, bounded iteration count, and explicit stop condition. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.\n- [S2] Research workflow guardrails: Production research assistants should capture sources, validate final claims, and fall back to deterministic behavior when external providers are unavailable. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.\n- [S3] Single-agent versus multi-agent tradeoffs: Single-agent baselines are cheaper and simpler, while multi-agent workflows can improve decomposition, reviewability, and citation discipline on complex tasks. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.\n- [S4] Benchmarking LLM systems: Useful evaluations combine latency, quality rubrics, citation coverage, cost, and failure rate instead of relying on a single subjective output. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.\n- [S5] Traceable shared state: Shared state should preserve request context, intermediate notes, route history, errors, and trace events so a reviewer can reconstruct the workflow. Query focus: Research GraphRAG state-of-the-art and write a 500-word summary.",
+      "metadata": {
+        "source_count": 5
+      }
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: analyst",
+      "metadata": {
+        "iteration": 2
+      }
+    },
+    {
+      "agent": "analyst",
+      "content": "Key claims:\n- Multi-agent systems are useful when work benefits from decomposition, handoff, and independent review.\n- A single-agent baseline remains important because it is simpler, faster, and cheaper for straightforward requests.\n- Guardrails should include max iterations, trace events, validation, and fallback behavior.\n\nTradeoffs:\n- Multi-agent workflows add latency and coordination overhead.\n- They improve inspectability because each role leaves a separate artifact.\n\nEvidence gaps:\n- This offline run used 5 local mock sources; production runs should replace them with fresh provider-backed search.",
+      "metadata": {
+        "source_count": 5,
+        "has_research": true
+      }
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: writer",
+      "metadata": {
+        "iteration": 3
+      }
+    },
+    {
+      "agent": "writer",
+      "content": "Answer for: Research GraphRAG state-of-the-art and write a 500-word summary\n\nA practical multi-agent research system should keep the workflow small and traceable: the supervisor routes work, the researcher gathers evidence, the analyst turns evidence into tradeoffs, and the writer produces the final answer. This separation is most valuable for complex research tasks because each role leaves an inspectable artifact and the final answer can cite the evidence used [S1] [S5].\n\nCompared with a single-agent baseline, the multi-agent version usually costs more latency and coordination, but it improves reviewability, failure isolation, and citation discipline. For simple questions, the baseline is often sufficient; for tasks requiring source collection, comparison, and quality review, the multi-agent path is easier to debug and benchmark [S2] [S3] [S4].\n\nRecommended guardrails are max iterations, deterministic fallback behavior, structured shared state, and trace events for each handoff. The benchmark should compare latency, estimated cost, quality score, citation coverage, and failure rate rather than judging only by whether the output looks polished [S4].\n\nSources:\n[S1] Agent orchestration patterns (https://example.local/agent-orchestration)\n[S2] Research workflow guardrails (https://example.local/research-guardrails)\n[S3] Single-agent versus multi-agent tradeoffs (https://example.local/single-vs-multi-agent)\n[S4] Benchmarking LLM systems (https://example.local/benchmarking-llm-systems)\n[S5] Traceable shared state (https://example.local/shared-state-tracing)",
+      "metadata": {
+        "citation_count": 11
+      }
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: critic",
+      "metadata": {
+        "iteration": 4
+      }
+    },
+    {
+      "agent": "critic",
+      "content": "Critic verdict: pass\nCitation coverage: 100% (5/5 sources cited)\nFailure mode to monitor: stale or mock sources can make a polished answer look better supported than it is.",
+      "metadata": {
+        "error_count": 0
+      }
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: done",
+      "metadata": {
+        "iteration": 5
+      }
+    }
+  ],
+  "trace": [
+    {
+      "name": "supervisor",
+      "payload": {
+        "action": "route",
+        "next_route": "researcher",
+        "iteration": 1
+      }
+    },
+    {
+      "name": "researcher",
+      "payload": {
+        "action": "search_and_summarize",
+        "source_count": 5
+      }
+    },
+    {
+      "name": "supervisor",
+      "payload": {
+        "action": "route",
+        "next_route": "analyst",
+        "iteration": 2
+      }
+    },
+    {
+      "name": "analyst",
+      "payload": {
+        "action": "analyze_research",
+        "has_research": true
+      }
+    },
+    {
+      "name": "supervisor",
+      "payload": {
+        "action": "route",
+        "next_route": "writer",
+        "iteration": 3
+      }
+    },
+    {
+      "name": "writer",
+      "payload": {
+        "action": "synthesize_final_answer",
+        "has_sources": true
+      }
+    },
+    {
+      "name": "supervisor",
+      "payload": {
+        "action": "route",
+        "next_route": "critic",
+        "iteration": 4
+      }
+    },
+    {
+      "name": "critic",
+      "payload": {
+        "action": "review_final_answer",
+        "error_count": 0
+      }
+    },
+    {
+      "name": "supervisor",
+      "payload": {
+        "action": "route",
+        "next_route": "done",
+        "iteration": 5
+      }
+    },
+    {
+      "name": "workflow",
+      "payload": {
+        "action": "stop",
+        "reason": "done"
+      }
+    }
+  ],
+  "errors": []
+}
